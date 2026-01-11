@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تطبيق ذكي لإدارة المهام والمهام اليومية مع ميزات متقدمة للتصنيف والأولوية والعمل بدون إنترنت">
+    <meta name="theme-color" content="#667eea">
+    <meta name="background-color" content="#ffffff">
+    <meta name="keywords" content="قائمة المهام, إدارة المهام, مهامي, todo list, task manager, تطبيق مهام, تنظيم الوقت">
+    <meta name="author" content="MiniMax Agent">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="قائمة المهام الذكية">
+    <meta property="og:description" content="تطبيق ويب تقدمي لإدارة مهامك اليومية بذكاء">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://AbdulElahOthmanGwaith.github.io/todo-app-enhanced-repo/">
+    <meta property="og:image" content="icons/icon-512x512.svg">
+    <meta property="og:locale" content="ar_SA">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="canonical" href="https://AbdulElahOthmanGwaith.github.io/todo-app-enhanced-repo/">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/svg+xml" href="icons/icon-192x192.svg">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.svg">
+    <link rel="mask-icon" href="icons/icon-192x192.svg" color="#667eea">
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <title>قائمة المهام الذكية - الإصدار المحدث</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-top">
+                <h1>قائمة المهام</h1>
+                <button id="darkModeBtn" class="dark-mode-btn" title="تبديل الوضع الداكن">
+                    <span class="mode-icon">🌙</span>
+                </button>
+            </div>
+            <p class="subtitle">نظم يومك بذكاء</p>
+        </header>
+
+        <!-- شريط البحث -->
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="بحث في المهام...">
+        </div>
+
+        <div class="input-section">
+            <div class="input-row">
+                <input type="text" id="taskInput" placeholder="أضف مهمة جديدة..." maxlength="100">
+                <select id="categorySelect">
+                    <option value="work">💼 عمل</option>
+                    <option value="personal">🏠 شخصي</option>
+                    <option value="study">📚 دراسة</option>
+                    <option value="health">🏃 صحة</option>
+                    <option value="other">📁 أخرى</option>
+                </select>
+            </div>
+            <div class="input-row">
+                <input type="date" id="dueDateInput" class="date-input">
+                <select id="prioritySelect">
+                    <option value="low">⬇️ منخفضة</option>
+                    <option value="normal" selected>➡️ عادية</option>
+                    <option value="high">⬆️ مهمة</option>
+                    <option value="urgent">🔴 عاجلة</option>
+                </select>
+                <button id="addTaskBtn">إضافة</button>
+            </div>
+        </div>
+
+        <!-- قسم الإحصائيات -->
+        <div class="stats-section">
+            <div class="stat-card" data-tooltip="إجمالي المهام">
+                <span class="stat-icon">📋</span>
+                <span class="stat-number" id="totalTasks">0</span>
+                <span class="stat-label">الكل</span>
+            </div>
+            <div class="stat-card completed" data-tooltip="المهام المكتملة">
+                <span class="stat-icon">✅</span>
+                <span class="stat-number" id="completedTasks">0</span>
+                <span class="stat-label">مكتملة</span>
+            </div>
+            <div class="stat-card pending" data-tooltip="المهام المعلقة">
+                <span class="stat-icon">⏳</span>
+                <span class="stat-number" id="pendingTasks">0</span>
+                <span class="stat-label">قيد الانتظار</span>
+            </div>
+            <div class="stat-card productivity" data-tooltip="نسبة الإنجاز">
+                <span class="stat-icon">📈</span>
+                <span class="stat-number" id="productivityRate">0%</span>
+                <span class="stat-label">إنتاجية</span>
+            </div>
+        </div>
+
+        <!-- قسم التصفية والعرض -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
+                <button class="filter-btn" data-filter="completed">مكتملة</button>
+            </div>
+            <div class="filter-group category-filter">
+                <button class="filter-btn active" data-category="all">كل الفئات</button>
+                <button class="filter-btn" data-category="work">💼</button>
+                <button class="filter-btn" data-category="personal">🏠</button>
+                <button class="filter-btn" data-category="study">📚</button>
+                <button class="filter-btn" data-category="health">🏃</button>
+            </div>
+        </div>
+
+        <!-- قسم الإجراءات الجماعية -->
+        <div class="bulk-actions" id="bulkActions">
+            <span class="bulk-info"><span id="selectedCount">0</span> محددة</span>
+            <button class="bulk-btn complete-selected" onclick="completeSelected()">✓ إتمام</button>
+            <button class="bulk-btn delete-selected" onclick="deleteSelected()">🗑️ حذف</button>
+            <button class="bulk-btn" onclick="clearSelection()">إلغاء</button>
+        </div>
+
+        <ul id="taskList" class="task-list">
+            <!-- المهام ستضاف هنا -->
+        </ul>
+
+        <div id="emptyMessage" class="empty-message">
+            <span class="empty-icon">📝</span>
+            <p>لا توجد مهام حالياً</p>
+            <p class="empty-hint">أضف مهمة جديدة للبدء</p>
+        </div>
+
+        <!-- شريط التقدم -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span>التقدم اليومي</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- قائمة الإجراءات -->
+        <div class="actions-section">
+            <button class="action-btn" onclick="exportTasks()" title="تصدير المهام">📤 تصدير</button>
+            <button class="action-btn" onclick="importTasks()" title="استيراد المهام">📥 استيراد</button>
+            <button class="action-btn" onclick="clearCompleted()" title="حذف المكتملة">🧹 حذف المكتملة</button>
+            <button class="action-btn danger" onclick="clearAllTasks()" title="حذف الكل">⚠️ حذف الكل</button>
+        </div>
+    </div>
+
+    <!-- زر التراجع عن الحذف -->
+    <div id="undoToast" class="undo-toast">
+        <span>تم حذف المهمة</span>
+        <button onclick="undoDelete()">تراجع</button>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script src="sw-register.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

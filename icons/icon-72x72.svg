@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- خلفية دائرية -->
+  <rect width="72" height="72" rx="16" fill="#667eea"/>
+  
+  <!-- أيقونة القائمة -->
+  <g transform="translate(12, 16)">
+    <!-- خط علوي -->
+    <rect x="0" y="0" width="36" height="4" rx="2" fill="white"/>
+    <!-- خط وسط -->
+    <rect x="0" y="10" width="48" height="4" rx="2" fill="white" opacity="0.9"/>
+    <!-- خط سفلي -->
+    <rect x="0" y="20" width="30" height="4" rx="2" fill="white" opacity="0.8"/>
+    
+    <!-- علامة الصح -->
+    <g transform="translate(38, -8)">
+      <circle cx="6" cy="6" r="8" fill="#28a745"/>
+      <path d="M3 6L5.5 8.5L9 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+  
+  <!-- نص "مهامي" -->
+  <text x="36" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">مهامي</text>
+</svg>

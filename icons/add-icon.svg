@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- خلفية دائرية -->
+  <rect width="192" height="192" rx="44" fill="#667eea"/>
+  
+  <!-- أيقونة الإضافة -->
+  <g transform="translate(46, 46)">
+    <!-- دائرة الخلفية -->
+    <circle cx="50" cy="50" r="50" fill="#28a745"/>
+    
+    <!-- علامة الزائد -->
+    <rect x="42" y="30" width="16" height="40" rx="8" fill="white"/>
+    <rect x="30" y="42" width="40" height="16" rx="8" fill="white"/>
+  </g>
+  
+  <!-- نص "إضافة" -->
+  <text x="96" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">إضافة</text>
+</svg>

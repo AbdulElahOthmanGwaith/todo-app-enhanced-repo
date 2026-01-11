@@ -1,0 +1,80 @@
+{
+  "name": "قائمة المهام الذكية",
+  "short_name": "مهامي",
+  "description": "تطبيق ذكي لإدارة المهام والمهام اليومية مع ميزات متقدمة للتصنيف والأولوية والعمل بدون إنترنت",
+  "start_url": "/todo-app-enhanced/",
+  "scope": "/todo-app-enhanced/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/todo-app-enhanced/icons/icon-72x72.svg",
+      "sizes": "72x72",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/todo-app-enhanced/icons/icon-96x96.svg",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/todo-app-enhanced/icons/icon-128x128.svg",
+      "sizes": "128x128",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/todo-app-enhanced/icons/icon-144x144.svg",
+      "sizes": "144x144",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/todo-app-enhanced/icons/icon-152x152.svg",
+      "sizes": "152x152",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/todo-app-enhanced/icons/icon-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/todo-app-enhanced/icons/icon-384x384.svg",
+      "sizes": "384x384",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/todo-app-enhanced/icons/icon-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "إضافة مهمة جديدة",
+      "short_name": "إضافة",
+      "description": "إضافة مهمة جديدة إلى القائمة",
+      "url": "/todo-app-enhanced/?action=add"
+    },
+    {
+      "name": "عرض المهام المعلقة",
+      "short_name": "المعلقة",
+      "description": "عرض المهام التي لم تتم بعد",
+      "url": "/todo-app-enhanced/?filter=pending"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
