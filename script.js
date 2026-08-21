@@ -433,6 +433,48 @@ function exportTasks() {
     showNotification('تم تصدير المهام بنجاح', 'success');
 }
 
+// تطبيع المهام المستوردة لمنع البيانات غير الموثوقة من الوصول إلى DOM أو التخزين
+const VALID_CATEGORIES = new Set(['work', 'personal', 'study', 'health', 'other']);
+const VALID_PRIORITIES = new Set(['low', 'normal', 'high', 'urgent']);
+const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+function isValidIsoDate(value) {
+    return typeof value === 'string' && ISO_DATE_PATTERN.test(value) && !Number.isNaN(Date.parse(value));
+}
+
+function normalizeImportedTasks(rawTasks) {
+    const usedIds = new Set(tasks.filter(task => Number.isSafeInteger(task.id)).map(task => task.id));
+    const idBase = Date.now();
+
+    return rawTasks.reduce((normalized, candidate, index) => {
+        if (!candidate || typeof candidate !== 'object') return normalized;
+
+        const text = typeof candidate.text === 'string' ? candidate.text.trim().slice(0, 100) : '';
+        if (!text) return normalized;
+
+        let id = Number.isSafeInteger(candidate.id) && candidate.id > 0 ? candidate.id : idBase + index;
+        while (usedIds.has(id)) id += 1;
+        usedIds.add(id);
+
+        const completed = candidate.completed === true;
+        const createdAt = isValidIsoDate(candidate.createdAt) ? candidate.createdAt : new Date().toISOString();
+        const completedAt = completed && isValidIsoDate(candidate.completedAt) ? candidate.completedAt : null;
+
+        normalized.push({
+            id,
+            text,
+            category: VALID_CATEGORIES.has(candidate.category) ? candidate.category : 'other',
+            priority: VALID_PRIORITIES.has(candidate.priority) ? candidate.priority : 'normal',
+            dueDate: isValidIsoDate(candidate.dueDate) ? candidate.dueDate : null,
+            completed,
+            createdAt,
+            completedAt
+        });
+
+        return normalized;
+    }, []);
+}
+
 // استيراد المهام
 function importTasks() {
     const input = document.createElement('input');
@@ -447,12 +489,18 @@ function importTasks() {
                 try {
                     const importedTasks = JSON.parse(event.target.result);
                     if (Array.isArray(importedTasks)) {
-                        tasks = [...importedTasks, ...tasks];
+                        const normalizedTasks = normalizeImportedTasks(importedTasks);
+                        if (normalizedTasks.length === 0 && importedTasks.length > 0) {
+                            showNotification('لم يتم العثور على مهام صالحة في الملف', 'error');
+                            return;
+                        }
+
+                        tasks = [...normalizedTasks, ...tasks];
                         saveTasks();
                         renderTasks();
                         updateStats();
                         updateProgress();
-                        showNotification(`تم استيراد ${importedTasks.length} مهمة`, 'success');
+                        showNotification(`تم استيراد ${normalizedTasks.length} مهمة`, 'success');
                     } else {
                         showNotification('ملف غير صالح', 'error');
                     }
